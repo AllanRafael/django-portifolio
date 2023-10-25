@@ -27,7 +27,6 @@ Para executar o projeto em Docker, basta executar o comando `make docker-run` na
 
 ## Estrutura do Projeto
 ```shell
-.
 ├── docker-compose.yaml
 ├── Dockerfile
 ├── Makefile
@@ -36,11 +35,6 @@ Para executar o projeto em Docker, basta executar o comando `make docker-run` na
 ├── portifolio
 │   ├── asgi.py
 │   ├── __init__.py
-│   ├── __pycache__
-│   │   ├── __init__.cpython-39.pyc
-│   │   ├── settings.cpython-39.pyc
-│   │   ├── urls.cpython-39.pyc
-│   │   └── wsgi.cpython-39.pyc
 │   ├── settings.py
 │   ├── urls.py
 │   └── wsgi.py
@@ -51,5 +45,6 @@ Para executar o projeto em Docker, basta executar o comando `make docker-run` na
     ├── base.html
     └── home.html
 
-4 directories, 18 files
+3 directories, 14 files
+
 ```
