@@ -79,11 +79,7 @@ WSGI_APPLICATION = "portifolio.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
-    "default": dburl(
-        config("DATABASE_URL")
-    )
-}
+DATABASES = {"default": dburl(config("DATABASE_URL"))}
 
 
 # Password validation

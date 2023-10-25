@@ -34,17 +34,17 @@ test-coverage:
 	pytest --cov-branch --cov-report term-missing --cov=app tests/ -vv
 
 #Run Section
-run:
-	@gunicorn "app.main:create_app()" -k uvicorn.workers.UvicornWorker -b 0.0.0.0:8000 -w 4 --preload --error-logfile=- --log-level info
-
-run-dev:
-	@gunicorn "app.main:create_app()" -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:8000 --preload --reload --access-logfile=- --error-logfile=- --log-level debug
-
 run-db:
-	docker-compose up -d migrations
+	docker-compose up -d migrate
+
+run: run-db
+	@docker-compose rm -f -s -v app
+	@docker-compose rm -f -s -v migrate
+	@python manage.py runserver 0.0.0.0:8000
 
 run-docker:
-	docker-compose up -d
+	@docker-compose rm -f -s -v migrate
+	@docker-compose up --build -d app
 
 # Lint Section
 black:
@@ -59,26 +59,23 @@ sort-imports:
 	@isort .
 
 flake8:
-	@flake8 app/
+	@flake8 .
 
 mypy:
-	@mypy app/
+	@mypy .
 
 black-check:
-	@black --check app/
+	@black --check .
 
 isort-check:
-	@isort --check-only app/
+	@isort --check-only .
 
 lint: flake8 black-check isort-check
 
 # Migration Section
 
 migrate:
-	@alembic upgrade head
+	@python manage.py migrate
 
 migration:
-	@alembic revision --autogenerate -m "$(m)"
-
-migrate-down:
-	@alembic downgrade -1
+	@python manage.py makemigrations
