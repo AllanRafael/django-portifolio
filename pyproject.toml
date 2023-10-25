@@ -1,0 +1,52 @@
+[tool.poetry]
+name = "django-portifolio"
+version = "0.1.0"
+description = "Site com portifolio de projetos"
+authors = ["Marcelo Lino <mdslino@gmail.com>"]
+readme = "README.md"
+packages = [{include = "django_portifolio"}]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+django = "^4.2.6"
+dj-database-url = "^2.1.0"
+python-decouple = "^3.8"
+django-bootstrap-v5 = "^1.0.11"
+psycopg = {extras = ["binary", "pool"], version = "^3.1.12"}
+
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.10.1"
+isort = "^5.12.0"
+mypy = "^1.6.1"
+flake8 = "^6.1.0"
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+include_trailing_comma = true
+force_grid_wrap = 0
+use_parentheses = true
+ensure_newline_before_comments = true
+line_length = 79
+
+[tool.black]
+line-length = 79
+target-version = ['py310']
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  # The following are specific to Black, you probably don't want those.
+  | blib2to3
+  | tests/data
+  | profiling
+)/
+'''
+# We use preview style for formatting Black itself. If you
+# want stable formatting across releases, you should keep
+# this off.
+preview = true
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
